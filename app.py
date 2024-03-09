@@ -16,7 +16,8 @@ class InferlessPythonModel:
 
     def infer(self, inputs):
         prompt = inputs["prompt"]
-        image = self.pipe(prompt,num_inference_steps=10).images[0]
+        num_inference_steps = inputs["num_inference_steps"]
+        image = self.pipe(prompt,num_inference_steps=num_inference_steps).images[0]
         buff = BytesIO()
         image.save(buff, format="JPEG")
         img_str = base64.b64encode(buff.getvalue()).decode()
